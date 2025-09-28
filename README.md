@@ -1,115 +1,77 @@
-# YouTube Transcript Translator
+# YouTube Subtitle Translator
 
-A simple Python tool that extracts YouTube video transcripts and translates them to Korean using YouTube's built-in translation feature.
+YouTube 동영상의 자막을 간단하게 추출하고 번역하여 SRT 파일로 다운로드할 수 있는 웹 애플리케이션입니다.
 
-## Features
+## 주요 기능
 
-- 🎯 **Simple & Fast**: Extract and translate YouTube transcripts with minimal code
-- 🌐 **YouTube Native Translation**: Uses YouTube's own translation engine (no API keys required)
-- ⏱️ **Timestamped Output**: Each line includes timestamp for easy reference
-- 📁 **Multiple URL Formats**: Supports various YouTube URL formats
-- 🆓 **Completely Free**: No API keys, no registration, no usage limits
+- 🎬 **YouTube URL 입력**만으로 자막 추출
+- 🌍 **17개 언어** 번역 지원
+- ⚡ **실시간 번역 미리보기**
+- 📥 **SRT 파일 다운로드**
+- 🎯 **YouTube 내장 번역 엔진** 사용으로 고품질 번역
 
-## Installation
+## 지원 언어
 
-1. Clone this repository:
-```bash
-git clone https://github.com/yourusername/youtube-transcript-translator.git
-cd youtube-transcript-translator
-```
+한국어, 영어, 일본어, 중국어(간체/번체), 스페인어, 프랑스어, 독일어, 이탈리아어, 포르투갈어, 러시아어, 아랍어, 힌디어, 태국어, 베트남어, 인도네시아어, 터키어
 
-2. Install required dependency:
-```bash
-pip install youtube-transcript-api
-```
-
-## Usage
-
-Run the script:
-```bash
-python main.py
-```
-
-Enter a YouTube URL when prompted:
-```
-Input youtube url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-```
-
-The translated transcript will be saved in the `outputs/` directory as `{video_id}.txt`.
-
-### Supported URL Formats
-
-- `https://www.youtube.com/watch?v=VIDEO_ID`
-- `https://www.youtube.com/watch?v=VIDEO_ID&t=30s`
-- `https://youtu.be/VIDEO_ID`
-- `https://www.youtube.com/embed/VIDEO_ID`
-- `VIDEO_ID` (11-character video ID)
-
-## Output Format
-
-The generated file contains timestamped Korean translations:
-
-```
-[00:00] 안녕하세요 여러분, 오늘은 파이썬에 대해 알아보겠습니다.
-[00:05] 파이썬은 간단하고 직관적인 프로그래밍 언어입니다.
-[00:12] 데이터 분석부터 웹 개발까지 다양한 분야에서 사용됩니다.
-```
-
-## How It Works
-
-1. **URL Parsing**: Extracts video ID from various YouTube URL formats using regex
-2. **Transcript Fetching**: Retrieves English transcript using YouTube Transcript API
-3. **Translation**: Uses YouTube's built-in translation to convert to Korean
-4. **Formatting**: Adds timestamps and saves to text file
-
-## Requirements
-
-- Python 3.6+
-- `youtube-transcript-api` library
-
-## Limitations
-
-- Only works with videos that have English transcripts available
-- Translation quality depends on YouTube's translation engine
-- Some videos may not have transcripts available
-
-## Use Cases
-
-- 📚 **Study Materials**: Convert English lectures to Korean for easier comprehension
-- 📝 **Note Taking**: Get readable transcripts for video content
-- 🎓 **Language Learning**: Compare original and translated content
-- 🔍 **Content Analysis**: Quick access to video content in text format
-
-## Example
+## 설치 방법
 
 ```bash
-$ python main.py
-Input youtube url: https://www.youtube.com/watch?v=abc123
-video_id: abc123
-Saved!
-Input youtube url: exit
+# 레포지토리 클론
+git clone <repository-url>
+cd <repository-name>
+
+# 가상환경 생성 및 활성화
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 의존성 설치
+pip install -r requirements.txt
 ```
 
-Output file (`outputs/abc123.txt`):
+## 사용 방법
+
+```bash
+# 애플리케이션 실행
+python app.py
+
+# 웹 브라우저에서 접속
+# http://localhost:5000
 ```
-[00:00] 이것은 번역된 첫 번째 문장입니다.
-[00:03] 이것은 번역된 두 번째 문장입니다.
-[00:07] 계속해서 더 많은 내용이 이어집니다.
+
+1. YouTube URL 입력
+2. 번역할 언어 선택
+3. "자막 추출 및 번역 시작" 버튼 클릭
+4. 실시간 미리보기 확인
+5. 완료 후 SRT 파일 다운로드
+
+## 기술 스택
+
+- **Backend**: Flask (Python)
+- **Frontend**: HTML, CSS (Tailwind), JavaScript (jQuery)
+- **YouTube API**: youtube-transcript-api
+- **Translation**: YouTube 내장 번역 시스템
+
+## 프로젝트 구조
+
+```
+├── app.py                 # Flask 애플리케이션 메인
+├── module/
+│   └── youtube_module.py  # YouTube 자막 추출 모듈
+├── templates/
+│   └── index.html        # 웹 인터페이스
+├── requirements.txt      # Python 의존성
+└── README.md            # 프로젝트 문서
 ```
 
-## Contributing
+## 라이센스
 
-Feel free to submit issues and enhancement requests!
+MIT License
 
-## License
+## 기여하기
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api) for providing the core transcript extraction functionality
-- YouTube's translation service for high-quality translations
-
----
-
-**Note**: This tool is for educational and personal use only. Please respect YouTube's terms of service and content creators' rights.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request

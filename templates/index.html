@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link as="style"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Work+Sans%3Awght%40400%3B500%3B700%3B900"
+        onload="this.rel='stylesheet'" rel="stylesheet" />
+    <title>YouTube 자막 번역기</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <div class="relative flex size-full min-h-screen flex-col bg-slate-100 group/design-root overflow-x-hidden"
+        style='font-family: "Work Sans", "Noto Sans", sans-serif;'>
+        <div class="layout-container flex h-full grow flex-col">
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-slate-200 px-10 py-4 bg-white shadow-sm">
+                <div class="flex items-center gap-3 text-slate-900">
+                    <div class="size-7 text-[#0c77f2]">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-slate-900 text-xl font-semibold leading-tight tracking-[-0.015em]">YouTube 자막 번역기</h2>
+                </div>
+            </header>
+            
+            <main class="px-6 flex flex-1 justify-center py-8">
+                <div class="layout-content-container flex flex-col max-w-4xl flex-1">
+                    <div class="flex flex-wrap justify-between gap-3 p-4">
+                        <div class="flex min-w-72 flex-col gap-3">
+                            <p class="text-slate-900 text-4xl font-black leading-tight tracking-[-0.033em]">YouTube 자막을 쉽게 번역하세요</p>
+                            <p class="text-slate-700 text-base font-normal leading-normal">
+                                YouTube 동영상 URL을 입력하면 자막을 추출하고 한국어로 번역하여 SRT 파일로 다운로드할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 메인 번역 섹션 -->
+                    <div class="flex flex-col gap-6 p-4">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <h3 class="text-slate-900 text-lg font-semibold mb-4">YouTube 자막 추출 및 번역</h3>
+                            
+                            <div class="space-y-4">
+                                <!-- YouTube URL 입력 -->
+                                <div>
+                                    <label for="youtube-url" class="block text-sm font-medium text-slate-700 mb-2">
+                                        YouTube URL
+                                    </label>
+                                    <input type="url" id="youtube-url" 
+                                           placeholder="https://www.youtube.com/watch?v=..." 
+                                           class="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                </div>
+                                
+                                <!-- 목표 언어 선택 -->
+                                <div>
+                                    <label for="target-lang" class="block text-sm font-medium text-slate-700 mb-2">
+                                        번역 목표 언어
+                                    </label>
+                                    <select id="target-lang" class="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                        <option value="ko">한국어</option>
+                                        <option value="en">영어</option>
+                                        <option value="ja">일본어</option>
+                                        <option value="zh">중국어 (간체)</option>
+                                        <option value="zh-TW">중국어 (번체)</option>
+                                        <option value="es">스페인어</option>
+                                        <option value="fr">프랑스어</option>
+                                        <option value="de">독일어</option>
+                                        <option value="it">이탈리아어</option>
+                                        <option value="pt">포르투갈어</option>
+                                        <option value="ru">러시아어</option>
+                                        <option value="ar">아랍어</option>
+                                        <option value="hi">힌디어</option>
+                                        <option value="th">태국어</option>
+                                        <option value="vi">베트남어</option>
+                                        <option value="id">인도네시아어</option>
+                                        <option value="tr">터키어</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- 번역 시작 버튼 -->
+                                <button id="translate-btn" 
+                                        class="w-full flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                    </svg>
+                                    <span>자막 추출 및 번역 시작</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 진행률 표시 -->
+                        <div id="progress-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hidden">
+                            <h4 class="text-slate-900 text-lg font-semibold mb-4">번역 진행률</h4>
+                            <div class="w-full bg-slate-200 rounded-full h-3 mb-4">
+                                <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                            <p id="progress-text" class="text-sm text-slate-600">0%</p>
+                            <div id="status-text" class="text-sm text-slate-700 mt-2"></div>
+                        </div>
+                        
+                        <!-- 번역 미리보기 -->
+                        <div id="preview-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hidden">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="text-slate-900 text-lg font-semibold">번역 미리보기</h4>
+                                <button id="preview-toggle" class="text-sm text-blue-600 hover:text-blue-800">
+                                    전체 보기
+                                </button>
+                            </div>
+                            <div id="preview-content" class="max-h-96 overflow-y-auto space-y-2">
+                                <!-- 미리보기 내용이 여기에 추가됩니다 -->
+                            </div>
+                        </div>
+                        
+                        <!-- 결과 표시 -->
+                        <div id="result-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hidden">
+                            <h4 class="text-slate-900 text-lg font-semibold mb-4">번역 완료</h4>
+                            <div id="download-section" class="space-y-3">
+                                <!-- 다운로드 링크가 여기에 추가됩니다 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            const $youtubeUrl = $('#youtube-url');
+            const $targetLang = $('#target-lang');
+            const $translateBtn = $('#translate-btn');
+            const $progressContainer = $('#progress-container');
+            const $progressBar = $('#progress-bar');
+            const $progressText = $('#progress-text');
+            const $statusText = $('#status-text');
+            const $previewContainer = $('#preview-container');
+            const $previewContent = $('#preview-content');
+            const $previewToggle = $('#preview-toggle');
+            const $resultContainer = $('#result-container');
+            const $downloadSection = $('#download-section');
+            
+            let isPreviewExpanded = false;
+            let previewEntries = [];
+            
+            // 미리보기 토글 기능
+            $previewToggle.on('click', function() {
+                isPreviewExpanded = !isPreviewExpanded;
+                updatePreviewDisplay();
+            });
+            
+            function updatePreviewDisplay() {
+                if (previewEntries.length === 0) return;
+                
+                const displayEntries = isPreviewExpanded ? previewEntries : previewEntries.slice(0, 5);
+                
+                $previewContent.empty();
+                displayEntries.forEach((entry, index) => {
+                    const $entry = $(`
+                        <div class="border-l-4 border-blue-200 pl-3 py-2">
+                            <div class="text-xs text-slate-500 mb-1">${entry.timestamp}</div>
+                            <div class="text-sm text-slate-600 mb-1">${entry.original}</div>
+                            <div class="text-sm text-slate-900 font-medium">${entry.translated}</div>
+                        </div>
+                    `);
+                    $previewContent.append($entry);
+                });
+                
+                $previewToggle.text(isPreviewExpanded ? '간단히 보기' : '전체 보기');
+                
+                if (previewEntries.length <= 5) {
+                    $previewToggle.hide();
+                } else {
+                    $previewToggle.show();
+                }
+            }
+            
+            $translateBtn.on('click', async function() {
+                const url = $youtubeUrl.val().trim();
+                const targetLang = $targetLang.val();
+                
+                if (!url) {
+                    alert('YouTube URL을 입력하세요.');
+                    return;
+                }
+                
+                // 버튼 비활성화 및 로딩 상태
+                $translateBtn.prop('disabled', true);
+                $translateBtn.find('span').text('처리 중...');
+                $progressContainer.removeClass('hidden');
+                $previewContainer.addClass('hidden');
+                $resultContainer.addClass('hidden');
+                previewEntries = [];
+                
+                try {
+                    // YouTube 자막 추출 및 번역 시작
+                    const response = await fetch('/api/youtube/translate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+                            url: url,
+                            target_lang: targetLang
+                        })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('번역 요청 실패');
+                    }
+                    
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
+                    let extractedCount = 0;
+                    let totalCount = 0;
+                    let translatedSrt = '';
+                    
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        
+                        if (done) break;
+                        
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop();
+                        
+                        for (const line of lines) {
+                            if (!line.trim()) continue;
+                            
+                            try {
+                                const data = JSON.parse(line);
+                                
+                                if (data.error) {
+                                    throw new Error(data.error);
+                                }
+                                
+                                if (data.status === 'extracting') {
+                                    $statusText.text('YouTube 자막 추출 중...');
+                                } else if (data.status === 'extracted') {
+                                    totalCount = data.count;
+                                    $statusText.text(`자막 ${totalCount}개 추출 완료. 번역 시작...`);
+                                } else if (data.status === 'translating') {
+                                    extractedCount++;
+                                    const percent = Math.round((extractedCount / totalCount) * 100);
+                                    $progressBar.css('width', percent + '%');
+                                    $progressText.text(percent + '%');
+                                    $statusText.text(`번역 중... (${extractedCount}/${totalCount})`);
+                                    
+                                    // 미리보기 업데이트
+                                    if (data.preview) {
+                                        previewEntries.push(data.preview);
+                                        
+                                        // 미리보기 컨테이너 표시
+                                        if (previewEntries.length === 1) {
+                                            $previewContainer.removeClass('hidden');
+                                        }
+                                        
+                                        updatePreviewDisplay();
+                                    }
+                                } else if (data.status === 'completed') {
+                                    translatedSrt = data.srt_content;
+                                    $progressBar.css('width', '100%');
+                                    $progressText.text('100%');
+                                    $statusText.text('번역 완료!');
+                                    
+                                    // 다운로드 링크 생성
+                                    const blob = new Blob([translatedSrt], { type: 'text/plain;charset=utf-8' });
+                                    const downloadUrl = URL.createObjectURL(blob);
+                                    
+                                    const videoId = data.video_id || 'translated';
+                                    const fileName = `${videoId}_translated.srt`;
+                                    
+                                    $downloadSection.html(`
+                                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                                            <div class="flex items-center">
+                                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                                <span class="text-green-800 font-medium">${fileName}</span>
+                                            </div>
+                                            <a href="${downloadUrl}" download="${fileName}" 
+                                               class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition-colors">
+                                                다운로드
+                                            </a>
+                                        </div>
+                                    `);
+                                    
+                                    $resultContainer.removeClass('hidden');
+                                }
+                            } catch (e) {
+                                console.warn('JSON 파싱 오류:', line, e);
+                            }
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('번역 중 오류가 발생했습니다: ' + error.message);
+                    $progressContainer.addClass('hidden');
+                } finally {
+                    // 버튼 상태 복원
+                    $translateBtn.prop('disabled', false);
+                    $translateBtn.find('span').text('자막 추출 및 번역 시작');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
