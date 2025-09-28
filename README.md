@@ -2,6 +2,8 @@
 
 YouTube 동영상의 자막을 간단하게 추출하고 번역하여 SRT 파일로 다운로드할 수 있는 웹 애플리케이션입니다.
 
+![poster](./assets/main.png)
+
 ## 주요 기능
 
 - 🎬 **YouTube URL 입력**만으로 자막 추출
