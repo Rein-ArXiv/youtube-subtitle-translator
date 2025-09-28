@@ -7,7 +7,7 @@
     <link as="style"
         href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Work+Sans%3Awght%40400%3B500%3B700%3B900"
         onload="this.rel='stylesheet'" rel="stylesheet" />
-    <title>YouTube 자막 번역기</title>
+    <title>YouTube 번역 자막 추출기</title>
     <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -27,7 +27,7 @@
                                 fill="currentColor"></path>
                         </svg>
                     </div>
-                    <h2 class="text-slate-900 text-xl font-semibold leading-tight tracking-[-0.015em]">YouTube 자막 번역기</h2>
+                    <h2 class="text-slate-900 text-xl font-semibold leading-tight tracking-[-0.015em]">YouTube 번역 자막 추출기</h2>
                 </div>
             </header>
             
@@ -35,9 +35,9 @@
                 <div class="layout-content-container flex flex-col max-w-4xl flex-1">
                     <div class="flex flex-wrap justify-between gap-3 p-4">
                         <div class="flex min-w-72 flex-col gap-3">
-                            <p class="text-slate-900 text-4xl font-black leading-tight tracking-[-0.033em]">YouTube 자막을 쉽게 번역하세요</p>
+                            <p class="text-slate-900 text-4xl font-black leading-tight tracking-[-0.033em]">YouTube 번역 자막 추출기</p>
                             <p class="text-slate-700 text-base font-normal leading-normal">
-                                YouTube 동영상 URL을 입력하면 자막을 추출하고 한국어로 번역하여 SRT 파일로 다운로드할 수 있습니다.
+                                YouTube 동영상 URL을 입력하면 번역된 자막을 추출하여 SRT 파일로 다운로드할 수 있습니다.
                             </p>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                     <!-- 메인 번역 섹션 -->
                     <div class="flex flex-col gap-6 p-4">
                         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                            <h3 class="text-slate-900 text-lg font-semibold mb-4">YouTube 자막 추출 및 번역</h3>
+                            <h3 class="text-slate-900 text-lg font-semibold mb-4">YouTube 번역 자막 추출</h3>
                             
                             <div class="space-y-4">
                                 <!-- YouTube URL 입력 -->
@@ -90,14 +90,14 @@
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                                     </svg>
-                                    <span>자막 추출 및 번역 시작</span>
+                                    <span>번역 자막 추출 시작</span>
                                 </button>
                             </div>
                         </div>
                         
                         <!-- 진행률 표시 -->
                         <div id="progress-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hidden">
-                            <h4 class="text-slate-900 text-lg font-semibold mb-4">번역 진행률</h4>
+                            <h4 class="text-slate-900 text-lg font-semibold mb-4">추출 진행률</h4>
                             <div class="w-full bg-slate-200 rounded-full h-3 mb-4">
                                 <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
                             </div>
@@ -108,7 +108,7 @@
                         <!-- 번역 미리보기 -->
                         <div id="preview-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hidden">
                             <div class="flex justify-between items-center mb-4">
-                                <h4 class="text-slate-900 text-lg font-semibold">번역 미리보기</h4>
+                                <h4 class="text-slate-900 text-lg font-semibold">추출된 자막 미리보기</h4>
                                 <button id="preview-toggle" class="text-sm text-blue-600 hover:text-blue-800">
                                     전체 보기
                                 </button>
@@ -120,7 +120,7 @@
                         
                         <!-- 결과 표시 -->
                         <div id="result-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hidden">
-                            <h4 class="text-slate-900 text-lg font-semibold mb-4">번역 완료</h4>
+                            <h4 class="text-slate-900 text-lg font-semibold mb-4">추출 완료</h4>
                             <div id="download-section" class="space-y-3">
                                 <!-- 다운로드 링크가 여기에 추가됩니다 -->
                             </div>
@@ -245,13 +245,13 @@
                                     $statusText.text('YouTube 자막 추출 중...');
                                 } else if (data.status === 'extracted') {
                                     totalCount = data.count;
-                                    $statusText.text(`자막 ${totalCount}개 추출 완료. 번역 시작...`);
+                                    $statusText.text(`자막 ${totalCount}개 확인 완료. 추출 시작...`);
                                 } else if (data.status === 'translating') {
                                     extractedCount++;
                                     const percent = Math.round((extractedCount / totalCount) * 100);
                                     $progressBar.css('width', percent + '%');
                                     $progressText.text(percent + '%');
-                                    $statusText.text(`번역 중... (${extractedCount}/${totalCount})`);
+                                    $statusText.text(`추출 중... (${extractedCount}/${totalCount})`);
                                     
                                     // 미리보기 업데이트
                                     if (data.preview) {
@@ -268,7 +268,7 @@
                                     translatedSrt = data.srt_content;
                                     $progressBar.css('width', '100%');
                                     $progressText.text('100%');
-                                    $statusText.text('번역 완료!');
+                                    $statusText.text('추출 완료!');
                                     
                                     // 다운로드 링크 생성
                                     const blob = new Blob([translatedSrt], { type: 'text/plain;charset=utf-8' });
@@ -302,12 +302,12 @@
                     
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('번역 중 오류가 발생했습니다: ' + error.message);
+                    alert('추출 중 오류가 발생했습니다: ' + error.message);
                     $progressContainer.addClass('hidden');
                 } finally {
                     // 버튼 상태 복원
                     $translateBtn.prop('disabled', false);
-                    $translateBtn.find('span').text('자막 추출 및 번역 시작');
+                    $translateBtn.find('span').text('번역 자막 추출 시작');
                 }
             });
         });
